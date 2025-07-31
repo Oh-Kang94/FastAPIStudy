@@ -5,7 +5,7 @@ from app.presentation.dto.get_product import GetProducts
 
 class AddProduct(BaseModel):
     class Request(BaseModel):
-        id: str
+        id: int
         name: str
 
         def parse_res(self) -> GetProducts.Response:
