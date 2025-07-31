@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Path, Query
 
+
 from app.presentation.common.common_response import CommonResponse
 from app.presentation.dto.add_product import AddProduct
 from app.presentation.dto.get_product import GetProducts
@@ -16,7 +17,7 @@ async def addProduct(product: AddProduct.Request) -> CommonResponse[None]:
     return CommonResponse()
 
 
-@product_router.get("")
+@product_router.get("", response_model=CommonResponse[list[GetProducts.Response]])
 async def getProductList() -> CommonResponse[list[GetProducts.Response]]:
     return CommonResponse(data=product_list)
 
