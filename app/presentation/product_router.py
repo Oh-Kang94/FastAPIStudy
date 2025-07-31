@@ -21,7 +21,7 @@ async def getProductList() -> CommonResponse[list[GetProducts.Response]]:
     return CommonResponse(data=product_list)
 
 
-@product_router.get("/{product_id}")
+@product_router.get("/path/{product_id}")
 async def getProductByParameter(product_id: int = Path(..., title="The ID of the to retrieve", example=1, ge=0, lt=3)) -> CommonResponse[GetProducts.Response]:
     # Swagger 문서 표기 방법 이다.
     '''
@@ -38,6 +38,24 @@ async def getProductByParameter(product_id: int = Path(..., title="The ID of the
         lt(less than )
         le(less equal )
     '''
+    for product in product_list:
+        if product.id == product_id:
+            return CommonResponse(data=product)
+    raise
+
+
+@product_router.get("/query")
+async def getProductByQuery(product_id: int = Query(None)) -> CommonResponse[GetProducts.Response]:
+    # Swagger 문서 표기 방법 이다.
+    '''
+        Query Parameter 사용 방법
+
+        `product_id: int = Query(None)`
+
+        `None`설정 하면 Query에 안들어가도 뭐라안함 하지만, ...이면 필수
+    '''
+    if product_id is None:
+        return CommonResponse(data=None)
     for product in product_list:
         if product.id == product_id:
             return CommonResponse(data=product)
