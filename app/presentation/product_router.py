@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Path, Query, status
 
 
-from app.presentation.common.common_response import CommonResponse, ErrorResponse, NotFoundResourceException
+from app.presentation.common.common_response import CommonResponse, NotFoundResourceException
 from app.presentation.dto.add_product import AddProduct
 from app.presentation.dto.get_product import GetProducts
 
