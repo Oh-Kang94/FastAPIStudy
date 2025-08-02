@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-from app.presentation.dto.get_product import GetProducts
+from app.presentation.product.dto.get_product import GetProducts
 
 
 class AddProduct(BaseModel):

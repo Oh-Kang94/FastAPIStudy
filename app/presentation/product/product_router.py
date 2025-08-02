@@ -1,11 +1,13 @@
 from fastapi import APIRouter, Path, Query, status
 
 
+from app.presentation.common.api_tags import ApiTags
 from app.presentation.common.common_response import CommonResponse, NotFoundResourceException
-from app.presentation.dto.add_product import AddProduct
-from app.presentation.dto.get_product import GetProducts
 
-product_router = APIRouter(prefix="/product")
+from .dto.add_product import AddProduct
+from .dto.get_product import GetProducts
+
+product_router = APIRouter(prefix="/product", tags=[ApiTags.PRODUCT])
 
 product_list: list[GetProducts.Response] = []
 
