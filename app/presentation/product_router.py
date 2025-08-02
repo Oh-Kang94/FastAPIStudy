@@ -1,17 +1,16 @@
-from fastapi import APIRouter, Path, Query
+from fastapi import APIRouter, Path, Query, status
 
 
-from app.presentation.common.common_response import CommonResponse
+from app.presentation.common.common_response import CommonResponse, ErrorResponse, NotFoundResourceException
 from app.presentation.dto.add_product import AddProduct
 from app.presentation.dto.get_product import GetProducts
-
 
 product_router = APIRouter(prefix="/product")
 
 product_list: list[GetProducts.Response] = []
 
 
-@product_router.post("")
+@product_router.post("", status_code=status.HTTP_201_CREATED)
 async def addProduct(product: AddProduct.Request) -> CommonResponse[None]:
     product_list.append(product.parse_res())
     return CommonResponse()
@@ -42,10 +41,17 @@ async def getProductByParameter(product_id: int = Path(..., title="The ID of the
     for product in product_list:
         if product.id == product_id:
             return CommonResponse(data=product)
-    raise
+    raise NotFoundResourceException(id=product_id)
 
 
-@product_router.get("/query")
+@product_router.get("/query", responses={
+    404: {
+        "description": "Not Found"
+    },
+    422: {
+        "description": "ValidationError"
+    },
+})
 async def getProductByQuery(product_id: int = Query(None)) -> CommonResponse[GetProducts.Response]:
     # Swagger 문서 표기 방법 이다.
     '''
@@ -60,4 +66,4 @@ async def getProductByQuery(product_id: int = Query(None)) -> CommonResponse[Get
     for product in product_list:
         if product.id == product_id:
             return CommonResponse(data=product)
-    raise
+    raise NotFoundResourceException(id=product_id)
