@@ -1,11 +1,9 @@
-from datetime import datetime
-from fastapi import HTTPException, Request, status
-from typing import Any, Optional, Sequence
+from fastapi import Request, status
+from typing import Any, Sequence
 from fastapi.encoders import jsonable_encoder
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 
-from pydantic import BaseModel, Field
 
 from app.presentation.common.common_response import CustomHTTPException, ErrorResponse
 

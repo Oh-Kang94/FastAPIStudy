@@ -2,7 +2,7 @@ from datetime import datetime
 from pydantic import BaseModel, Field
 from typing import Any, Generic, Optional, TypeVar
 from datetime import datetime
-from fastapi import HTTPException, Request, status
+from fastapi import HTTPException, status
 from typing import Any, Optional, Sequence
 
 T = TypeVar("T")
