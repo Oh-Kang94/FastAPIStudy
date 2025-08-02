@@ -8,7 +8,7 @@ class SignUp:
         password: str
 
         model_config = ConfigDict(
-            title="SignIn.Request",
+            title="SignUp.Request",
             json_schema_extra={
                 "examples": [
                     {
