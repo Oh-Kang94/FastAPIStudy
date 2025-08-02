@@ -24,7 +24,7 @@ async def getProductList() -> CommonResponse[list[GetProducts.Response]]:
 
 
 @product_router.get("/path/{product_id}")
-async def getProductByParameter(product_id: int = Path(..., title="The ID of the to retrieve", example=1, ge=0, lt=3)) -> CommonResponse[GetProducts.Response]:
+async def getProductByParameter(product_id: int = Path(..., title="The ID of the product to retrieve", example=1, ge=0, lt=3)) -> CommonResponse[GetProducts.Response]:
     # Swagger 문서 표기 방법 이다.
     '''
         Path Parameter 사용 방법
