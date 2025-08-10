@@ -23,6 +23,6 @@ app = FastAPI(
 
 # router 등록
 for router in routers:
-    app.include_router(router)
+    app.include_router(router)  # type: ignore
 
 conn()

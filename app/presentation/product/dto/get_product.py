@@ -1,5 +1,7 @@
 from pydantic import BaseModel, ConfigDict
 
+from app.entity.product import Product
+
 
 class GetProducts(BaseModel):
     # class Response(BaseModel):
@@ -35,3 +37,11 @@ class GetProducts(BaseModel):
             # use_enum_values=True,       # Enum의 값 사용
             # arbitrary_types_allowed=False,  # 임의 타입 허용
         )
+
+        @classmethod
+        def from_entity(cls, product: Product) -> "GetProducts.Response":
+            assert product.num is not None, "Product num is None"
+            return cls(
+                id=product.num,
+                name=product.name,
+            )
