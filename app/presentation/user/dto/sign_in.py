@@ -2,19 +2,11 @@ from pydantic import BaseModel, ConfigDict
 
 
 class SignIn:
-
     class Request(BaseModel):
-        name: str
+        id: str
         password: str
 
         model_config = ConfigDict(
             title="SignIn.Request",
-            json_schema_extra={
-                "examples": [
-                    {
-                        "name": "admin",
-                        "password": "adminPw"
-                    }
-                ]
-            },
+            json_schema_extra={"examples": [{"id": "admin", "password": "adminPw"}]},
         )

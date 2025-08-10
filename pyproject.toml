@@ -15,6 +15,10 @@ dependencies = [
 
 
 [tool.ruff]
+exclude = [
+    ".git",
+    ".venv",
+]
 line-length = 88
 indent-width = 4
 

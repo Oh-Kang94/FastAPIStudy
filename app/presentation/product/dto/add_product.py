@@ -9,4 +9,4 @@ class AddProduct(BaseModel):
         name: str
 
         def parse_res(self) -> GetProducts.Response:
-            return GetProducts.Response(id=self.id, name=self.name) 
+            return GetProducts.Response(id=self.id, name=self.name)
