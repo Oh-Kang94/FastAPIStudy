@@ -1,23 +1,24 @@
+from collections.abc import Sequence
 from datetime import datetime
-from pydantic import BaseModel, Field
-from typing import Any, Generic, Optional, TypeVar
+from typing import Any, Generic, TypeVar
+
 from fastapi import HTTPException, status
-from typing import Any, Optional, Sequence
+from pydantic import BaseModel, Field
 
 T = TypeVar("T")
 
 
 class CommonResponse(BaseModel, Generic[T]):
     success: bool = True
-    data: Optional[T] = None
+    data: T | None = None
     timestamp: datetime = Field(default_factory=datetime.now)
 
 
 class ErrorResponse(BaseModel):
     success: bool = False
     message: str
-    error_code: Optional[str] = None
-    data: Optional[Any] = None
+    error_code: str | None = None
+    data: Any | None = None
     timestamp: datetime = Field(default_factory=datetime.now)
 
 
@@ -30,9 +31,9 @@ class CustomHTTPException(HTTPException):
         self,
         detail: str,
         *,
-        error_code: Optional[str] = None,
-        data: Optional[Any] = None,
-        status_code: Optional[int] = None,
+        error_code: str | None = None,
+        data: Any | None = None,
+        status_code: int | None = None,
     ):
         self.error_code = error_code
         self.data = data
@@ -48,7 +49,7 @@ class NotFoundResourceException(CustomHTTPException):
         super().__init__(
             detail=f"id: {id} 를 찾을 수 없습니다",
             error_code="NOT_FOUND",
-            status_code=status.HTTP_404_NOT_FOUND
+            status_code=status.HTTP_404_NOT_FOUND,
         )
 
 
@@ -60,7 +61,7 @@ class ValidationException(CustomHTTPException):
             detail=message,
             error_code="VALIDATION_ERROR",
             data={"validation_errors": validation_errors},
-            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
         )
 
 
@@ -71,5 +72,5 @@ class AccessDeniedException(CustomHTTPException):
         super().__init__(
             detail="접근할 권한이 없습니다",
             error_code="ACCESS_DENIED",
-            status_code=status.HTTP_403_FORBIDDEN
+            status_code=status.HTTP_403_FORBIDDEN,
         )

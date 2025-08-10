@@ -5,6 +5,42 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
+    "cryptography>=45.0.5",
     "fastapi>=0.116.1",
+    "pymysql>=1.1.1",
+    "python-dotenv>=1.1.1",
+    "sqlmodel>=0.0.24",
     "uvicorn>=0.35.0",
 ]
+
+
+[tool.ruff]
+exclude = [
+    ".git",
+    ".venv",
+]
+line-length = 88
+indent-width = 4
+
+[tool.ruff.lint]
+select = [
+    "E",      # pycodestyle errors
+    "W",      # pycodestyle warnings
+    "F",      # pyflakes
+    "I",      # isort
+    "B",      # flake8-bugbear
+    "C4",     # flake8-comprehensions
+    "UP",     # pyupgrade
+    "ARG001", # unused arguments in functions
+]
+
+# 무시할 룰 코드 목록
+ignore = [
+    "E501", # line too long, handled by black
+    "B008", # do not perform function calls in argument defaults
+    "W191", # indentation contains tabs
+    "B904", # Allow raising exceptions without from e, for HTTPException
+]
+
+[dependency-groups]
+dev = ["pre-commit>=4.3.0", "ruff>=0.12.8"]
